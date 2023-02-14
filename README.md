@@ -15,5 +15,6 @@ Gira con las flechas ◄ ►.
 Enciende la linterna con la tecla F.
 Cambia de cámara con la tecla C.
 Dispara con el Espacio!
+Ten en cuenta que la escopeta apunta hacia el centro de la escena.
 
 Diviertete :)
