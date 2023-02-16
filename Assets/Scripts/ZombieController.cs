@@ -6,21 +6,29 @@ using UnityEngine;
 public class ZombieController : MonoBehaviour
 {
     [SerializeField] private Animator ZombieAnimatorController;
-    private bool followMotionTrigger, walkTrigger;
+    private bool followMotionTrigger, walkTrigger, raycastTrigger;
     private float walkTimer;
     [SerializeField] private Transform mainCharacter;
     private float speed = 0.6f;
-    private float bulletDamage = 105;
+    private float bulletDamage = 105f;
     [SerializeField] private float zombieHealth;
     private float zombieCollisionTimer;
     private AudioSource AudioZombieWalk;
+    [SerializeField] private Transform zombieView;
+    private float raycastDistance = 20f;
+    [SerializeField] private LayerMask toCollideWith;
     void Start()
     {
         zombieCollisionTimer = Time.time;
         AudioZombieWalk = GetComponent<AudioSource>();
+        raycastTrigger = true;
     }
     void Update()
     {
+        if (raycastTrigger)
+        {
+            ZombieRayCast();
+        }
         if (walkTrigger && (Time.time - walkTimer > 5))
         {
             zombieWalk();
@@ -31,12 +39,21 @@ public class ZombieController : MonoBehaviour
             zombieFall();
         }
     }
+    private void ZombieRayCast()
+    {
+        var hasCollided = Physics.Raycast(zombieView.position, zombieView.forward, out RaycastHit raycastInfo, raycastDistance, toCollideWith);
+        if (hasCollided)
+        {
+            zombieStart();
+        }
+    }
     public void zombieStart()
     {
         ZombieAnimatorController.SetBool("StartMotion", true);
         walkTrigger = true;
         walkTimer = Time.time;
         followMotionTrigger = true;
+        raycastTrigger = false;
     }
     public void zombieWalk()
     {
@@ -61,12 +78,6 @@ public class ZombieController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Bullet"))
-        {
-            zombieHealth -= bulletDamage;
-            Debug.Log("Lo mataste!");
-            GetComponent<Rigidbody>().isKinematic=true;
-        }
         if (other.CompareTag("MainCharacter") && Time.time-zombieCollisionTimer>2)
         {
             zombieCollisionTimer = Time.time;
@@ -76,5 +87,11 @@ public class ZombieController : MonoBehaviour
                 Debug.Log("Corre, te está mordiendo!");
             }
         }
+    }
+    public void HitByTheBullet()
+    {
+        zombieHealth -= bulletDamage;
+        GetComponent<Rigidbody>().isKinematic=true;
+        GameManager.Instance.AddKill();
     }
 }

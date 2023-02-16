@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ZombieTrigger : MonoBehaviour
 {
-    [SerializeField] private GameObject ZombieToCast;
     private AudioSource AudioZombieTrigger;
     private bool triggerTrigger;
     void Start()
     {
         AudioZombieTrigger = GetComponent<AudioSource>();
-        triggerTrigger= true;
+        triggerTrigger = true;
     }
-
     void Update()
     {
     }
@@ -20,7 +18,6 @@ public class ZombieTrigger : MonoBehaviour
     {
         if (other.CompareTag("MainCharacter") && triggerTrigger)
         {
-            ZombieToCast.GetComponent<ZombieController>().zombieStart();
             AudioZombieTrigger.Play();
             triggerTrigger= false;
             Debug.Log("Escuchas eso?");

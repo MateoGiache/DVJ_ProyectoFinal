@@ -11,6 +11,8 @@ public class ShotgunController : MonoBehaviour
     [SerializeField] private Transform bulletPoint;
     private float shootingTimer;
     private AudioSource audioShoot;
+    [SerializeField] private LayerMask toCollideWith;
+    private float raycastDistance = 50f;
     void Start()
     {
         aimMotionBool = true;
@@ -21,12 +23,21 @@ public class ShotgunController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && (Time.time-shootingTimer)>3)
         {
-            Shoot();
+            ShootComplement();
+            ShootRayCast(); 
         }
     }
-    private void Shoot()
+    private void ShootRayCast()
     {
-        Instantiate(bullet, bulletPoint.position, bulletPoint.rotation);
+        var hasCollided = Physics.Raycast(bulletPoint.position,bulletPoint.forward,out RaycastHit raycastInfo, raycastDistance, toCollideWith);
+        if(hasCollided)
+        {
+            var zombieCollided = raycastInfo.collider;
+            zombieCollided.GetComponent<ZombieController>().HitByTheBullet();
+        }
+    }
+    private void ShootComplement()
+    {
         shotgunController.SetTrigger("shootCondition");
         shootingTimer = Time.time;
         audioShoot.Play();

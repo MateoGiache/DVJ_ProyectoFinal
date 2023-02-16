@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1788125701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1788125702}
+  m_Layer: 9
+  m_Name: ZombieViewPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1788125702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788125701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.663, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6955177665220227909}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &20303435116877770
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,6 +2196,7 @@ Transform:
   - {fileID: 1326138600513270708}
   - {fileID: 8343414053238010184}
   - {fileID: 2244339992300080554}
+  - {fileID: 1788125702}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 168.207, z: 0}
@@ -2312,6 +2344,10 @@ MonoBehaviour:
   ZombieAnimatorController: {fileID: 3919800631389546815}
   mainCharacter: {fileID: 0}
   zombieHealth: 100
+  zombieView: {fileID: 1788125702}
+  toCollideWith:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!54 &919132148676349333
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2338,10 +2374,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 79e03538e35ea044fa21fcaa660611cb, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3629156
-  m_Height: 1.7153317
+  m_Radius: 0.4563684
+  m_Height: 1.8789254
   m_Direction: 1
-  m_Center: {x: -0.051457547, y: 1.02, z: 0.009999983}
+  m_Center: {x: -0.03702648, y: 1.1017971, z: 0.009999983}
 --- !u!1 &8128720984570733605
 GameObject:
   m_ObjectHideFlags: 0
